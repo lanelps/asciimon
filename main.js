@@ -62,16 +62,15 @@ function createMatrix(size) {
 
 function setFontSize(value) {
   const root = document.querySelector(`html`);
-  root.style.fontSize = `${value}px`;
+  root.style.fontSize = `${value - 2}px`;
 }
 
 // main
 //
 function main() {
-  const size = 16;
+  const size = 17;
   const aspectRatio = 1 / 1;
-  const resolution = size / 10;
-  const pixelSize = 10 * resolution;
+  const pixelSize = 16;
   const width = size * pixelSize;
   const height = width / aspectRatio;
 
