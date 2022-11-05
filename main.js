@@ -9,51 +9,75 @@ const body = document.body;
 const app = document.querySelector(`.screen-wrapper`);
 const gridElement = document.getElementById(`grid`);
 
-const aspectRatio = 1 / 1;
-const resolution = 2;
-const pixelSize = 10 * resolution;
-const width = 160 * resolution;
-const height = width / aspectRatio;
-const pixelLength = Math.floor((width * height) / pixelSize / pixelSize);
-
-const characters = `1234567890-=~!@#$%^&*()_+qwertyuiop[]\QWERTYUIOP{}|asdfghjkl;'ASDFGHJKL:"zxcvbnm,./ZXCVBNM<>?`;
 // methods
 //
-function pixel(index) {
+function pixel(value, size) {
   const pixelElement = document.createElement(`div`);
   pixelElement.classList.add(`pixel`);
   pixelElement.style.cssText = `
-    width: ${pixelSize}px;
-    height: ${pixelSize}px;
+    width: ${size}px;
+    height: ${size}px;
   `;
-  pixelElement.innerHTML =
-    characters[Math.floor(Math.random() * characters.length)];
+  pixelElement.innerHTML = value;
 
   return pixelElement;
 }
 
-function createGrid() {
+function createGrid(matrix, options) {
+  const { width, height, pixelSize } = options;
+
   gridElement.style.cssText = `
     width: ${width}px;
     height: ${height}px;
 
     display: grid;
-    grid-template-columns: repeat(${Math.floor(
-      width / pixelSize
-    )}, ${pixelSize}px);
+    grid-template-columns: repeat(${width / pixelSize}, ${pixelSize}px);
   `;
 
-  for (let i = 0; i < pixelLength; i++) {
-    gridElement.appendChild(pixel(i));
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      gridElement.appendChild(pixel(matrix[i][j], pixelSize));
+    }
   }
 
   return gridElement;
 }
 
+function createMatrix(size) {
+  const characters = `1234567890-=~!@#$%^&*()_+qwertyuiop[]\QWERTYUIOP{}|asdfghjkl;'ASDFGHJKL:"zxcvbnm,./ZXCVBNM<>?`;
+
+  const emptyMatrix = new Array(size).fill(new Array(size).fill(null));
+
+  const matrix = [];
+
+  for (let i = 0; i < emptyMatrix.length; i++) {
+    matrix.push([]);
+    for (let j = 0; j < emptyMatrix[i].length; j++) {
+      matrix[i][j] = characters[Math.floor(Math.random() * characters.length)];
+    }
+  }
+
+  return matrix;
+}
+
+function setFontSize(value) {
+  const root = document.querySelector(`html`);
+  root.style.fontSize = `${value}px`;
+}
+
 // main
 //
 function main() {
-  app.appendChild(createGrid());
+  const size = 16;
+  const aspectRatio = 1 / 1;
+  const resolution = size / 10;
+  const pixelSize = 10 * resolution;
+  const width = size * pixelSize;
+  const height = width / aspectRatio;
+
+  setFontSize(pixelSize);
+  const matrix = createMatrix(size);
+  app.appendChild(createGrid(matrix, { width, height, pixelSize }));
 }
 
 window.addEventListener("DOMContentLoaded", () => {
