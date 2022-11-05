@@ -1,0 +1,43 @@
+:root {
+  font-family: monospace;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --screen-bg: #8bac0f;
+}
+
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.grid {
+  position: relative;
+  /* overflow: hidden; */
+  border: 1px solid black
+}
+
+.pixel {
+  position: relative;
+  background-color: var(--screen-bg);
+
+  transition: background-color 0.3s ease;
+}
+
+.pixel:hover {
+  /* outline: 1px solid black; */
+  background-color: black;
+  z-index: 2;
+  transition: background-color 0s ease;
+}
