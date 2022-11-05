@@ -1,5 +1,6 @@
 :root {
   font-family: monospace;
+  font-size: 16px;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -7,7 +8,14 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --screen-bg: #8bac0f;
+  --green-100: #0f380f;
+  --green-75: #306230;
+  --green-50: #8bac0f;
+  --green-25: #9bbc0f;
+
+  --grey-100: #7f7f80;
+  --grey-50: #3b383f;
+  --grey-25: #d9d4d1;
 }
 
 #app {
@@ -22,22 +30,51 @@
   overflow: hidden;
 }
 
-.grid {
+#gameboy {
   position: relative;
-  /* overflow: hidden; */
-  border: 1px solid black
+
+  padding: 70px 30px;
+  background-color: var(--grey-25);
+  border-radius: 1rem 1rem 4rem 1rem;
+}
+
+.screen-wrapper {
+  position: relative;
+  
+  padding: 30px 70px;
+  background-color: var(--grey-100);
+  border-radius: 1rem 1rem 4rem 1rem;
+}
+
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-shadow: inset 0px 0px 10px black;
+  z-index: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+#grid {
+  position: relative;
+  overflow: hidden;
 }
 
 .pixel {
   position: relative;
-  background-color: var(--screen-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  background-color: var(--green-50);
   transition: background-color 0.3s ease;
+  text-align: center;
 }
 
 .pixel:hover {
-  /* outline: 1px solid black; */
-  background-color: black;
-  z-index: 2;
+  background-color: var(--green-75);
   transition: background-color 0s ease;
 }

@@ -6,50 +6,54 @@ import "./style.css";
 // global variables
 //
 const body = document.body;
-const app = document.getElementById(`app`);
+const app = document.querySelector(`.screen-wrapper`);
+const gridElement = document.getElementById(`grid`);
 
 const aspectRatio = 1 / 1;
 const resolution = 2;
 const pixelSize = 10 * resolution;
 const width = 160 * resolution;
 const height = width / aspectRatio;
-const pixelLength = (width * height) / pixelSize / pixelSize;
+const pixelLength = Math.floor((width * height) / pixelSize / pixelSize);
 
+const characters = `1234567890-=~!@#$%^&*()_+qwertyuiop[]\QWERTYUIOP{}|asdfghjkl;'ASDFGHJKL:"zxcvbnm,./ZXCVBNM<>?`;
 // methods
 //
-function pixel() {
+function pixel(index) {
   const pixelElement = document.createElement(`div`);
   pixelElement.classList.add(`pixel`);
   pixelElement.style.cssText = `
     width: ${pixelSize}px;
     height: ${pixelSize}px;
   `;
+  pixelElement.innerHTML =
+    characters[Math.floor(Math.random() * characters.length)];
 
   return pixelElement;
 }
 
 function createGrid() {
-  const gridElement = document.createElement(`div`);
-  gridElement.classList.add(`grid`);
   gridElement.style.cssText = `
     width: ${width}px;
     height: ${height}px;
 
     display: grid;
-    grid-template-columns: repeat(${width / pixelSize}, ${pixelSize}px);
+    grid-template-columns: repeat(${Math.floor(
+      width / pixelSize
+    )}, ${pixelSize}px);
   `;
 
   for (let i = 0; i < pixelLength; i++) {
-    gridElement.appendChild(pixel());
+    gridElement.appendChild(pixel(i));
   }
 
-  app.appendChild(gridElement);
+  return gridElement;
 }
 
 // main
 //
 function main() {
-  createGrid();
+  app.appendChild(createGrid());
 }
 
 window.addEventListener("DOMContentLoaded", () => {
