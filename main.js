@@ -5,20 +5,39 @@ import "./style.css";
 
 // global variables
 //
-const body = document.body;
+// const body = document.body;
 const app = document.querySelector(`.screen-wrapper`);
 const gridElement = document.getElementById(`grid`);
 
 // methods
 //
-function pixel(value, size) {
+function colorMiddlePixel(pixel) {
+  pixel.style.backgroundColor = `var(--green-100)`;
+  pixel.style.color = `var(--green-75)`;
+  pixel.style.color = `var(--green-75)`;
+  pixel.classList.add(`blink`);
+}
+
+function getMiddlePixel(matrix) {
+  const middleRowIndex = Math.round((matrix.length - 1) / 2);
+  const middleColumnIndex = Math.round((matrix[middleRowIndex].length - 1) / 2);
+
+  const middlePixel = document.querySelector(
+    `[data-row-index="${middleRowIndex}"][data-col-index="${middleColumnIndex}"]`
+  );
+  return middlePixel;
+}
+
+function pixel({ text, size, row, col }) {
   const pixelElement = document.createElement(`div`);
   pixelElement.classList.add(`pixel`);
   pixelElement.style.cssText = `
     width: ${size}px;
     height: ${size}px;
   `;
-  pixelElement.innerHTML = value;
+  pixelElement.innerHTML = text;
+  pixelElement.dataset.rowIndex = row;
+  pixelElement.dataset.colIndex = col;
 
   return pixelElement;
 }
@@ -36,7 +55,9 @@ function createGrid(matrix, options) {
 
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
-      gridElement.appendChild(pixel(matrix[i][j], pixelSize));
+      gridElement.appendChild(
+        pixel({ text: matrix[i][j], size: pixelSize, row: i, col: j })
+      );
     }
   }
 
@@ -77,6 +98,9 @@ function main() {
   setFontSize(pixelSize);
   const matrix = createMatrix(size);
   app.appendChild(createGrid(matrix, { width, height, pixelSize }));
+
+  const middlePixelElement = getMiddlePixel(matrix);
+  colorMiddlePixel(middlePixelElement);
 }
 
 window.addEventListener("DOMContentLoaded", () => {
