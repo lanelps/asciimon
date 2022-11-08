@@ -12,9 +12,6 @@ const gridElement = document.getElementById(`grid`);
 // methods
 //
 function colorMiddlePixel(pixel) {
-  pixel.style.backgroundColor = `var(--green-100)`;
-  pixel.style.color = `var(--green-75)`;
-  pixel.style.color = `var(--green-75)`;
   pixel.classList.add(`blink`);
 }
 
