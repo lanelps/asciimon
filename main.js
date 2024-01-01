@@ -7,7 +7,6 @@ import "./style.css";
 //
 // const body = document.body;
 const app = document.querySelector(`.screen-wrapper`);
-const gridElement = document.getElementById(`grid`);
 
 // methods
 //
@@ -42,11 +41,12 @@ function pixel({ text, size, row, col }) {
 function createGrid(matrix, options) {
   const { width, height, pixelSize } = options;
 
+  const gridElement = document.getElementById(`grid`);
+
   gridElement.style.cssText = `
     width: ${width}px;
     height: ${height}px;
 
-    display: grid;
     grid-template-columns: repeat(${width / pixelSize}, ${pixelSize}px);
   `;
 
@@ -80,7 +80,7 @@ function createMatrix(size) {
 
 function setFontSize(value) {
   const root = document.querySelector(`html`);
-  root.style.fontSize = `${value - 2}px`;
+  root.style.fontSize = `${value}px`;
 }
 
 // main
@@ -88,7 +88,7 @@ function setFontSize(value) {
 function main() {
   const size = 17;
   const aspectRatio = 1 / 1;
-  const pixelSize = 16;
+  const pixelSize = 17;
   const width = size * pixelSize;
   const height = width / aspectRatio;
 
